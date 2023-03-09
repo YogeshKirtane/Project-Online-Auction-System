@@ -68,7 +68,7 @@
   							<div class="col-4 col-md-4 col-lg-3">
       								<div class="card-body"> 
       								    <h4 class="badge bg-success text-wrap">ACTIVE</h4>   
-      									<img src="@{'images/'+${a.imageName}}" class="card-img-top" alt="..."> 									
+      									<img src="./images/${a.imageName}" class="card-img-top" alt="..."> 									
 										<br/><br/>
         								<h5 class="card-title">${a.name }</h5>
         								<h6 class="card-title">Starting prize: &#x20B9;${a.startingPrice } </h6>

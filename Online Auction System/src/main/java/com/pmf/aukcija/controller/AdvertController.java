@@ -6,25 +6,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pmf.aukcija.model.Advert;
@@ -70,6 +74,8 @@ public class AdvertController {
 	
 	@Autowired 
 	RatingService rs;
+	
+	public static String UPLOAD_DIRECTORY = System.getProperty("user.home") + "/uploads";
 	
 	//Method for viewing specific auctions after filter form in welcome.jsp
 	@RequestMapping(value="showAdverts", method=RequestMethod.POST)
@@ -226,7 +232,7 @@ public class AdvertController {
 		newAdvert.setUser(u);
 		newAdvert.setStartingPrice(startingPrice);
 		newAdvert.setCurrentPrice(startingPrice);
-		newAdvert.setImageName(image.getOriginalFilename());
+		newAdvert.setImageName(image.getOriginalFilename().replace(' ', '-'));
 		newAdvert.setName(name);
 		newAdvert.setDescription(description);
 		newAdvert.setIsActive((byte) 1);
@@ -235,16 +241,14 @@ public class AdvertController {
 		
 		as.save(newAdvert);
 		
-//		try {
-//			
-//			File saveimg = new ClassPathResource("/images").getFile(); 
-//			Path path =  Paths.get(saveimg.getAbsolutePath()+File.separator+image.getOriginalFilename());
-//			System.out.println(path);
-//			Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-//					
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, image.getOriginalFilename().replace(' ','-'));
+			File file = fileNameAndPath.toFile();
+			file.getParentFile().mkdirs();
+			image.transferTo(fileNameAndPath);				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		String success = "You just added new advert: "+newAdvert.getName();
 		
@@ -254,6 +258,13 @@ public class AdvertController {
 		return "advertNew";
 	}
 	
+	@GetMapping(value = "/images/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
+	public @ResponseBody byte[] getImage(@PathVariable String imageName) throws IOException {
+		Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, imageName.replace(' ','-'));
+		try (InputStream in = new FileInputStream(fileNameAndPath.toFile()) ){
+			 return IOUtils.toByteArray(in);
+		}
+	}
 	//Method that shows all auctions that loged in user set on auction
 	@RequestMapping(value="showAdvertsActiveClosed", method=RequestMethod.POST)
 	public String showAdvertsActiveClosed(@RequestParam(value="isActive", required=false) Byte isActive, ModelMap modelMap, HttpServletRequest request) {
