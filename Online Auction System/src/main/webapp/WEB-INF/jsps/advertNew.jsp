@@ -15,7 +15,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/auction.css">
 </head>
-<body>
+<body style="background-color: #E0E0E0">
 <div class="container overflow:hidden">
 	<!--NEREGISTROVAN CLAN-->
 	<c:if test="${user.role!=1 }">
@@ -49,9 +49,9 @@
 	
 	<div class="col-6">
 	<div class="card">
-  		<img class="card-img-top" src="/images/DeLorean_Time_Machine_Replica_Kovacs.jpg" alt="Card image cap">
+  		<img class="card-img-top" src="./images/${newAdvert.imageName}" alt="Card image cap">
   		<div class="card-body">
-    		<p class="card-text">Description: ${advert.description }</p>
+    		<p class="card-text">Description: ${newAdvert.description }</p>
   		</div>
 	</div>
 	</div>
@@ -59,11 +59,11 @@
 	<div class="col-3">
 	<div class="card">
   		<div class="card-body">
-    		<h3 class="card-title">${advert.name}</h3>
+    		<h3 class="card-title">${newAdvert.name}</h3>
   		</div>
   		<ul class="list-group list-group-flush">
-    		<li class="list-group-item">Starting prize: &#x20B9;${advert.startingPrice}</li>
-    		<li class="list-group-item">Current prize: &#x20B9;${advert.currentPrice}</li>				
+    		<li class="list-group-item">Starting prize: &#x20B9;${newAdvert.startingPrice}</li>
+    		<li class="list-group-item">Current prize: &#x20B9;${newAdvert.currentPrice}</li>				
   		</ul>
 	</div>
 	</div>
@@ -72,16 +72,16 @@
 	<div class="card">
   		<div class="card-body">
   			<div class="card-header">
-  				Status: <a href="closeBid?idProduct=${advert.idAdvert }" class="form-control btn btn-outline-success btn-sm">ACTIVE</a>
+  				Status: <a href="closeBid?idProduct=${newAdvert.idAdvert }" class="form-control btn btn-outline-success btn-sm">ACTIVE</a>
   			</div>
   			<br/>
-    		<h5 class="card-title">Owner: ${advert.user.firstname } ${advert.user.lastname }</h5>
-    		<p class="card-text">${advert.user.description }</p>
+    		<h5 class="card-title">Owner: ${newAdvert.user.firstname } ${newAdvert.user.lastname }</h5>
+    		<p class="card-text">${newAdvert.user.description }</p>
   		</div>
   		<ul class="list-group list-group-flush">
-    		<li class="list-group-item">Country: ${advert.user.country }</li>
-    		<li class="list-group-item">Town: ${advert.user.city }</li>
-    		<li class="list-group-item">Phone number: ${advert.user.phoneNumber }</li>
+    		<li class="list-group-item">Country: ${newAdvert.user.country }</li>
+    		<li class="list-group-item">Town: ${newAdvert.user.city }</li>
+    		<li class="list-group-item">Phone number: ${newAdvert.user.phoneNumber }</li>
   		</ul>
 	</div>
 	</div>

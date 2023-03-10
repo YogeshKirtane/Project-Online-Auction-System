@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-   <footer class="footer fixed-bottom" style="background-color: #e3f2fd;">
-	<div class="row justify-content-center mt-3">
-		<p class="text-center text-muted">Online Auction System | Buy and Sell Items Online</p>
+   <footer class="footer fixed-bottom border-top bg-light mb-n2 pt-1">
+	<div class="justify-content-center">
+		<p class="text-center text-muted"><small>Online Auction System | Buy and Sell Items Online</small></p>
 	</div>
    </footer>
 </body>

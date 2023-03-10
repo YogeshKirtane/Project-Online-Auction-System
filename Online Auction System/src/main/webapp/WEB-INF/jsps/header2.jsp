@@ -7,14 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<nav class="navbar fixed-top navbar-expand-lg" style="background-color: #e3f2fd;">
+<nav class="navbar fixed-top navbar-expand-lg border-bottom bg-light mt-n1 mb-n2">
 	  		<a class="navbar-brand" href="/auction/welcome">
-	  			<img src="/images/hammer.png" width="30" height="30" class="d-inline-block align-top" alt="">
-	    		<strong>Online Auction System</strong>
+	  			<img src="/images/logo-transparent-png.png" width="140" height="40" class="d-inline-block align-top" alt="">
 	  		</a>
 	  		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">	
-			  	<ul class="nav nav-tabs mr-auto mt-2 mt-lg-0">
-			    	<li class="nav-item active">		        
+			  	<ul class="nav navbar-nav mr-auto text-dark">
+			    	<li class="nav-item">		        
 			      		<a class="nav-link" href="/auction/welcome">Home <span class="sr-only">(current)</span></a>
 				  	</li>
 			      	<li class="nav-item">

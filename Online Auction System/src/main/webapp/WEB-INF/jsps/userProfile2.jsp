@@ -16,9 +16,9 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/auction2.css">
 </head>
-<body>
-<div class="container overflow:hidden">
-	<!--NEREGISTROVAN CLAN-->
+<body style="background-color: #E0E0E0">
+<div class="container overflow:hidden h-100">
+
 	<c:if test="${u.role!=1 }">
 		<jsp:include page="header1.jsp" />
 		<br/><br/><br/>
@@ -26,9 +26,8 @@
 		<br/>
 		<center><a href="/auth/registracija" class="btn btn-outline-info">Register</a></center>
 	</c:if>
-	<!-------------------------->
 
-	<!--REGISTROVAN CLAN-->
+
 	<c:if test="${u.role==1 }">
 		<jsp:include page="header2.jsp" />
 		<br/><br/><br/><br/>	

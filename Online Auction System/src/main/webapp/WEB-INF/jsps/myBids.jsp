@@ -15,9 +15,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/welcome.css">
 </head>
-<body>
-<div class="container overflow:hidden">
-	<!--NEREGISTROVAN CLAN-->
+<body style="background-color: #E0E0E0">
 	<c:if test="${user.role!=1 }">
 		<jsp:include page="header1.jsp" />
 		<br/><br/><br/>
@@ -25,9 +23,7 @@
 		<br/>
 		<center><a href="/auth/registracija" class="btn btn-outline-info">Register</a></center>
 	</c:if>
-	<!-------------------------->
 
-	<!--REGISTROVAN CLAN-->
 	<c:if test="${user.role==1 }">
   		<jsp:include page="header2.jsp" />
 		<br/><br/><br/><br/>
@@ -40,17 +36,17 @@
 				<c:forEach items="${myBids}" var="o">					
 						<c:if test="${o.user.idUser==user.idUser }"> 							
   							<c:if test="${o.advert.isActive==1 }">
-  								<div class="col-4 col-md-4 col-lg-3">
-      								<div class="card-body"> 
+  								<div class="col-4 col-md-4 col-lg-3 mb-2 mt-2">
+      								<div class="card-body bg-light border"> 
       								    <h4 class="badge bg-success text-wrap">ACTIVE</h4>   
-      									<img src="/images/DeLorean_Time_Machine_Replica_Kovacs.jpg" class="card-img-top" alt="..."> 									
+      									<img src="./images/${o.advert.imageName}" class="card-img-top" alt="..."> 									
 										<br/><br/>
         								<h5 class="card-title"><a class="isDisabled" href="advert?idProduct=${o.advert.idAdvert}">${o.advert.name}</a></h5>
         								<h6 class="card-title">Starting prize: &#x20B9;${o.advert.startingPrice} </h6>
         								<h6 class="card-title">Current prize: &#x20B9;${o.advert.currentPrice} </h6>
         								<p class="card-text text-truncate">Description: ${o.advert.description}</p>
 						   				<p class="card-text">Owner: <a class="isDisabled" href="/auction/myProfile2?idUser=${o.advert.user.idUser }">${o.advert.user.firstname } ${o.advert.user.lastname }</a></p>								   		
-        								<a href="advert?idProduct=${o.advert.idAdvert }" class="form-control btn btn-primary">Bid now!</a>
+        								<a href="advert?idProduct=${o.advert.idAdvert }" class="form-control btn btn-primary stretched-link">Bid now!</a>
         								<div class="card-footer">
 			    				 			<small class="text-muted">Posted at: ${o.advert.time }</small>
 			   							</div>
@@ -60,10 +56,10 @@
 						</c:if>	
 												
 						<c:if test="${o.advert.isActive==0 }">			
-  							<div class="col-4 col-md-4 col-lg-3">
-      								<div class="card-body">
+  							<div class="col-4 col-md-4 col-lg-3 mb-2 mt-2">
+      								<div class="card-body border bg-light">
       									<h4 class="badge bg-danger text-wrap">CLOSED</h4>
-      									<img src="/images/Velika b .jpg" class="card-img-top" alt="...">
+      									<img src="./images/${o.advert.imageName}" class="card-img-top" alt="...">
       									<br/><br/>
         								<h5 class="card-title"><a class="isDisabled" href="advert?idProduct=${o.advert.idAdvert}">${o.advert.name  }</a></h5>
         								<h6 class="card-title">Starting prize: &#x20B9;${o.advert.startingPrice } </h6>
@@ -79,7 +75,7 @@
 										<c:if test="${empty of.advert.ratingSeller}">
 											<c:if test="${of.user.idUser == user.idUser }">
 												<p class="form-control btn btn-success">You won auction!</p>
-										   		<a href="advert?idProduct=${o.advert.idAdvert }" class="form-control btn btn-danger">Please rate seller!</a>
+										   		<a href="advert?idProduct=${o.advert.idAdvert }" class="form-control btn btn-danger stretched-link">Please rate seller!</a>
 											</c:if>
 										</c:if>
 										<c:if test="${!empty of.advert.ratingSeller }">
@@ -105,7 +101,5 @@
 	</c:if>
 	<br/><br/><br/>
 		<jsp:include page="footer.jsp" />
-	
-</div>
 </body>
 </html>

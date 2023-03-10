@@ -16,4 +16,5 @@ public interface AdvertRepository extends JpaRepository<Advert, Integer>{
 	public List<Advert> findByUser(User u);
 	public List<Advert> findAllByOrderByIdAdvertDesc();
 	public List<Advert> findAllByIsActive(byte isActive);
+	public Advert deleteById(int id);
 }

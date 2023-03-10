@@ -9,16 +9,16 @@
 	<title>Auction</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="/css/auction.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/css/auction.css">
 </head>
-<body>
+<body style="background-color: #E0E0E0">
 	<div class="container overflow:hidden">
-	<!--NEREGISTROVAN CLAN-->
+
 	<c:if test="${user.role!=1 }">
 		<jsp:include page="header1.jsp" />
 		<br/><br/><br/><br/>
@@ -37,20 +37,20 @@
 		</div>
 	</c:if>
 	
-	<!--REGISTROVAN CLAN-->
+
 	<c:if test="${user.role==1 }">
 		<jsp:include page="header2.jsp" />
 	</c:if>
 	<br/><br/><br/><br/>
 	  
-    <!--NEREGISTROVAN CLAN-->
+
 	
 	<c:if test="${user.role!=1}">
 	<div class="row row-cols-1 row-cols-md-2 g-4">
 	
 	<div class="col-6">
 	<div class="card">
-  		<img class="card-img-top" src="@{'images/'+${advert.imageName}}" alt="Card image cap">
+  		<img class="card-img-top" src="./images/${advert.imageName}" alt="Card image cap">
   		<div class="card-body">
     		<p class="card-text">Description: ${advert.description }</p>
   		</div>
@@ -109,9 +109,6 @@
 	</div>
 	</c:if>
 	
-	<!--==================================================================================================-->
-	  
-    <!--=============================REGISTROVAN CLAN (OTVORENA AUKCIJA)==================================-->
 
 	<c:if test="${user.role==1 }">
 	<c:if test="${advert.isActive==1 }">
@@ -119,7 +116,7 @@
 	
 	<div class="col-6">
 	<div class="card">
-  		<img class="card-img-top" src="@{'images/'+${advert.imageName}}" alt="Card image cap">
+  		<img class="card-img-top" src="./images/${advert.imageName}" alt="Card image cap">
   		<div class="card-body">
     		<p class="card-text">Description: ${advert.description }</p>
   		</div>
@@ -142,7 +139,6 @@
 					<input type="submit" class="form-control btn btn-primary" value="Submit a Bid!">
 				</form>
 			</li>
-				
     		<li class="list-group-item">Last bids: 
     			<c:if test="${empty offers}">
 					<p class="card-text">Be the first one to bid!</p>
@@ -181,6 +177,8 @@
 	</div>
 	</div>
 	</div>
+	
+	
 	<br/><br/>
 	<section style="background-color: #eee;">
   	<div class="container my-5 py-5">
@@ -188,11 +186,28 @@
       <div class="col-md-12 col-lg-10 col-xl-8">
         <div class="card">
         
+        <div class="card-footer py-3 border-0">
+            <div class="d-flex flex-start w-100">
+              <div class="form-outline w-100">
+                <form action="addComment" method="post">
+					<div class="formClass">
+						<h3 class="card-text">Comments</h3>
+						<textarea placeholder="Add comment..."class="form-control textareaClass"  rows="4" name="content"></textarea>
+				 </div>
+					<div class="float-end mt-2 pt-1">
+              		<button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+              		<button type="reset" class="btn btn-outline-primary btn-sm">Cancel</button>
+            	 	</div>
+				</form>
+              </div>
+            </div>
+          </div>
+        
         <c:forEach items="${messages}" var="m">
 		<c:if test="${m.advert.idAdvert == advert.idAdvert}">
           <div class="card-body">
             <div class="d-flex flex-start align-items-center">
-              <div>
+              <div><br/>
                 <h6 class="fw-bold text-primary mb-1">${m.user.username }</h6>
                 <p class="text-muted small mb-0">${m.time }</p>
               </div>
@@ -202,22 +217,7 @@
         </c:if>
 		</c:forEach>
 		
-          <div class="card-footer py-3 border-0">
-            <div class="d-flex flex-start w-100">
-              <div class="form-outline w-100">
-                <form action="addComment" method="post">
-					<div class="formClass">
-						<h3 class="card-text">Comments</h3>
-						<textarea placeholder="Add comment.."class="form-control textareaClass"  rows="4" name="content"></textarea>
-				 </div>
-					<div class="float-end mt-2 pt-1">
-              		<button type="submit" class="btn btn-primary btn-sm">Post comment</button>
-              		<button type="reset" class="btn btn-outline-primary btn-sm">Cancel</button>
-            	 	</div>
-				</form>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -227,9 +227,6 @@
 	</c:if>
 	</c:if>
 	
-	<!---------------->	
-
-	<!--REGISTROVAN CLAN (ZATVORENA AUKCIJA)-->	
 	
 	<c:if test="${user.role==1 }">
 	<c:if test="${advert.isActive==0 }">
@@ -237,7 +234,7 @@
 	
 	<div class="col-6">
 	<div class="card">
-  		<img class="card-img-top" src="@{'images/'+${advert.imageName}}" alt="Card image cap">
+  		<img class="card-img-top" src="./images/${advert.imageName}" alt="Card image cap">
   		<div class="card-body">
     		<p class="card-text">Description: ${advert.description }</p>
   		</div>
@@ -347,7 +344,7 @@
                 <form action="addComment" method="post">
 					<div class="formClass">
 						<h3 class="card-text">Comments</h3>
-						<textarea placeholder="Add comment.."class="form-control textareaClass"  rows="4" name="content"></textarea>
+						<textarea placeholder="Add comment..."class="form-control textareaClass"  rows="4" name="content"></textarea>
 				 </div>
 					<div class="float-end mt-2 pt-1">
               		<button type="submit" class="btn btn-primary btn-sm">Post comment</button>
@@ -366,7 +363,6 @@
 	</c:if>
 	</c:if>
 	
-	<!--------------------------------->	
 	<br/><br/><br/>
 		<jsp:include page="footer.jsp" />
 	</div>

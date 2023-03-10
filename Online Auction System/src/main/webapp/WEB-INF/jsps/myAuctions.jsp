@@ -16,40 +16,32 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/welcome.css">
 </head>
-<body>
+<body style="background-color: #E0E0E0">
 <div class="container overflow:hidden">
-	<!--NEREGISTROVAN CLAN-->
-	<c:if test="${user.role!=1 }">
+
+	<c:if test="${user.role!=1}">
 		<jsp:include page="header1.jsp" />
 		<br/><br/><br/>
 		<center><a href="#" class="btn btn-warning">You are not allowed to see this page. Join us if you want to see more.</a></center>
 		<br/>
 		<center><a href="/auth/registracija" class="btn btn-outline-info">Register</a></center>
 	</c:if>
-	<!---------------------------->
 
-	<!--REGISTROVAN CLAN-->
 	<c:if test="${user.role==1 }">
   		<jsp:include page="header2.jsp" />	
 		<br/><br/><br/><br/>
 		<h2 class="text-center text-black"><strong>My Auction Items</strong></h2>
-		<br/><br/>	  
+		<br/>  
 		<div class="filtriranje">
 			<form action="showAdvertsActiveClosed" method="post">
-				<div class="d-flex align-items-center justify-content-center">				
-				<div class="col-auto">
-					<label class="form-label btn bg-transparent">Choose Status:</label>
-				</div>
-				<div class="col-4 col-lg-4">
-				<select class="form-control" name="isActive">
-					<option value="1">Active</option>
-	   				<option value="0">Closed</option>
-				</select>
-				</div>
-				<div class="col-auto">
-				<button class="form-control btn btn-primary" type="submit" value="Show">Show</button>
-				</div>
-				</div>
+					<div class="text-center">
+						<label for="exampleDataList" class="form-label btn bg-transparent">Choose Status</label>
+					</div>
+					<ul class="list-group list-group-horizontal justify-content-center">
+    					<li class="list-group-item"><button type="submit" name="isActive" value="1" class="btn btn-success btn-sm" data-mdb-ripple-color="dark">ACTIVE</button></li>
+						<li class="list-group-item"><a href="/auction/myAuctions" class="btn btn-info btn-sm" data-mdb-ripple-color="dark">SHOW ALL</a></li>
+						<li class="list-group-item"><button type="submit" name="isActive" value="0" class="btn btn-danger btn-sm" data-mdb-ripple-color="dark">CLOSED</button></li>
+					</ul>	
 			</form>
 		</div>
 		<br/><br/>
@@ -59,8 +51,8 @@
 			<div class="card-deck">		
 				<c:forEach items="${adverts }" var="a">					
 						<c:if test="${a.isActive==1 }">
-  							<div class="col-4 col-md-4 col-lg-3">
-      							<div class="card-body"> 
+  							<div class="col-4 col-md-4 col-lg-3 mb-2 mt-2">
+      							<div class="card-body bg-light border"> 
       								    <h4 class="badge bg-success text-wrap">ACTIVE</h4>   
       									<img src="./images/${a.imageName}" class="card-img-top" alt="..."> 									
 										<br/><br/>
@@ -69,16 +61,21 @@
         								<p class="card-text text-truncate">Description: ${a.description }</p>
 						   				<p class="card-text">Owner: <a class="isDisabled" href="/auction/myProfile2?idUser=${a.user.idUser }">${a.user.firstname } ${a.user.lastname }</a></p>				
 										<p class="card-text"><small class="text-muted">Posted at: ${a.time }</small></p>							   		 
-						   				<a href="advert?idProduct=${a.idAdvert }" class="form-control btn btn-primary">Check your auction!</a>	   			
+						   				<a href="advert?idProduct=${a.idAdvert }" class="form-control btn btn-primary">Check your auction!</a>
+						   				<div class="card-text mt-2">
+						    			<form action="deleteAdvert" method="post">
+											<input type="submit" class="form-control btn btn-danger" value="Delete Item">
+										</form>
+				   						</div>
       							</div>
   							</div>
 						</c:if>	
 												
 						<c:if test="${a.isActive==0 }">			
-  							<div class="col-4 col-md-4 col-lg-3">
-      								<div class="card-body">
+  							<div class="col-4 col-md-4 col-lg-3 mb-2 mt-2">
+      								<div class="card-body bg-light border">
       									<h4 class="badge bg-danger text-wrap">CLOSED</h4>
-      									<img src="/images/Velika b .jpg" class="card-img-top" alt="...">
+      									<img src="./images/${a.imageName}" class="card-img-top" alt="...">
       									<br/><br/>
         								<h5 class="card-title"><a class="isDisabled" href="advert?idProduct=${a.idAdvert }">${a.name }</a></h5>
         								<h6 class="card-title">Starting prize: &#x20B9;${a.startingPrice } </h6>
@@ -97,7 +94,12 @@
 										</c:if>
 										<c:if test="${!empty a.ratingBuyer }">
 											<a href="#" class="form-control btn btn-success">You already gave rating</a>
-										</c:if>																
+										</c:if>
+										<div class="card-text mt-2">
+						    			<form action="deleteAdvert" method="post">
+											<input type="submit" class="form-control btn btn-danger" value="Delete Item">
+										</form>
+				   						</div>																
 									</div>
     							</div>
 						</c:if>							

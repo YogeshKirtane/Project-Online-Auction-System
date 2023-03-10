@@ -101,8 +101,10 @@ public class AdvertController {
 			}
 			
 			Offer buyer = os.getOfferByPriceAndAdvert(price, a);
+			if(buyer != null) {
+				finalno.add(buyer);
+			}
 			
-			finalno.add(buyer);
 		}
 		
 		modelMap.addAttribute("messages", messages);
@@ -143,6 +145,25 @@ public class AdvertController {
 		
 		return "advert";	
 	}
+	
+	
+	/*
+	 * @RequestMapping(value="deleteAdvert", method=RequestMethod.POST) public
+	 * String deleteAdvert(@RequestParam(value ="idProduct", required =false)
+	 * Integer id, ModelMap modelMap, HttpServletRequest request) { Advert advert =
+	 * as.getAdvertById(id); User userAdvert = us.getUseryByAdverts(advert); User
+	 * userLogedIn = (User) request.getSession().getAttribute("user"); int
+	 * idUserAdvert = userAdvert.getIdUser(); int idUserLogedIn =
+	 * userLogedIn.getIdUser(); Rating rating =
+	 * rs.getRatingByUserAndAdvert(userAdvert, advert);
+	 * 
+	 * if(idUserAdvert==idUserLogedIn) {
+	 * 
+	 * }
+	 * 
+	 * return "deleteAdvert"; }
+	 */
+	 
 	
 	//Method for closing bid. If user is owner of auction, he can close auction on button ACTIVE..
 	@RequestMapping(value="closeBid", method=RequestMethod.GET) 
@@ -265,6 +286,7 @@ public class AdvertController {
 			 return IOUtils.toByteArray(in);
 		}
 	}
+	
 	//Method that shows all auctions that loged in user set on auction
 	@RequestMapping(value="showAdvertsActiveClosed", method=RequestMethod.POST)
 	public String showAdvertsActiveClosed(@RequestParam(value="isActive", required=false) Byte isActive, ModelMap modelMap, HttpServletRequest request) {
@@ -298,9 +320,9 @@ public class AdvertController {
 			}
 			
 			Offer buyer = os.getOfferByPriceAndAdvert(price, a);
-			
-			finalno.add(buyer);
-			
+			if(buyer != null) {
+				finalno.add(buyer);
+			}
 		}
 		
 		request.getSession().setAttribute("buyer", finalno);
@@ -333,7 +355,9 @@ public class AdvertController {
 			}
 			
 			Offer buyer = os.getOfferByPriceAndAdvert(price, a);
-			finalno.add(buyer);
+			if(buyer != null) {
+				finalno.add(buyer);
+			}
 			
 		}
 		
@@ -350,7 +374,9 @@ public class AdvertController {
 			}
 			
 			Offer buyer = os.getOfferByPriceAndAdvert(price, a);
-			myBids.add(buyer);
+			if(buyer != null) {
+				myBids.add(buyer);
+			}
 		}
 		
 		modelMap.addAttribute("offers", offers);
@@ -362,68 +388,61 @@ public class AdvertController {
 		
 	}
 	
-	@RequestMapping(value="activeAdvertReport", method=RequestMethod.GET) 
-	public void activeAdvertReport(HttpServletResponse response) throws Exception { 
-		List<Advert> activeAdverts = as.getAllByIsActive((byte) 1);
-		
-		response.setContentType("text/html");
-		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(activeAdverts);
-		InputStream inputStream = this.getClass().getResourceAsStream("/jasperreports/ActiveAuctionsReport.jrxml");
-		JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
-		Map<String, Object> params = new HashMap<String, Object>();
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-		inputStream.close();
-		
-		response.setContentType("application/x-download");
-		response.addHeader("Content-disposition", "attachment; filename=ActiveAuctionsReport.pdf");
-		OutputStream out = response.getOutputStream();
-		JasperExportManager.exportReportToPdfStream(jasperPrint,out);
-	}
-	
-	@RequestMapping(value="closedAuctionsReport", method=RequestMethod.GET) 
-	public void closedAuctionsReport(HttpServletResponse response, HttpServletRequest request) throws Exception { 
-		User u = (User) request.getSession().getAttribute("user");
-		List<Advert> closedAdverts = as.getAdvertsByUserAndIsActive(u, (byte) 0) ;
-		List<Offer> finalno = new ArrayList<Offer>();
-		
-		for(Advert a : closedAdverts) {
-			List<Offer> o = os.getOffersByAdvert(a); 
-			double price=0;
-
-			for(Offer offer : o) {
-				double offerPrice = offer.getPrice();
-				if(price < offerPrice) {
-					price = offerPrice;
-					System.out.println(price);
-				}
-			}
-			
-			Offer buyer = os.getOfferByPriceAndAdvert(price, a);
-			finalno.add(buyer);
-			
-		}
-		
-		for(Offer o : finalno) {
-			for(Advert a : closedAdverts) {
-				if(o.getAdvert().getIdAdvert()==a.getIdAdvert()) {
-					
-				}
-			}
-		}
-		int size = closedAdverts.size();
-		response.setContentType("text/html");
-		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(closedAdverts);
-		InputStream inputStream = this.getClass().getResourceAsStream("/jasperreports/MyClosedAuctions.jrxml");
-		JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("size", size);
-		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-		inputStream.close();
-		
-		response.setContentType("application/x-download");
-		response.addHeader("Content-disposition", "attachment; filename=MyClosedAuctions.pdf");
-		OutputStream out = response.getOutputStream();
-		JasperExportManager.exportReportToPdfStream(jasperPrint,out);
-	}
-	
+	/*
+	 * @RequestMapping(value="activeAdvertReport", method=RequestMethod.GET) public
+	 * void activeAdvertReport(HttpServletResponse response) throws Exception {
+	 * List<Advert> activeAdverts = as.getAllByIsActive((byte) 1);
+	 * 
+	 * response.setContentType("text/html"); JRBeanCollectionDataSource dataSource =
+	 * new JRBeanCollectionDataSource(activeAdverts); InputStream inputStream =
+	 * this.getClass().getResourceAsStream(
+	 * "/jasperreports/ActiveAuctionsReport.jrxml"); JasperReport jasperReport =
+	 * JasperCompileManager.compileReport(inputStream); Map<String, Object> params =
+	 * new HashMap<String, Object>(); JasperPrint jasperPrint =
+	 * JasperFillManager.fillReport(jasperReport, params, dataSource);
+	 * inputStream.close();
+	 * 
+	 * response.setContentType("application/x-download");
+	 * response.addHeader("Content-disposition",
+	 * "attachment; filename=ActiveAuctionsReport.pdf"); OutputStream out =
+	 * response.getOutputStream();
+	 * JasperExportManager.exportReportToPdfStream(jasperPrint,out); }
+	 * 
+	 * @RequestMapping(value="closedAuctionsReport", method=RequestMethod.GET)
+	 * public void closedAuctionsReport(HttpServletResponse response,
+	 * HttpServletRequest request) throws Exception { User u = (User)
+	 * request.getSession().getAttribute("user"); List<Advert> closedAdverts =
+	 * as.getAdvertsByUserAndIsActive(u, (byte) 0) ; List<Offer> finalno = new
+	 * ArrayList<Offer>();
+	 * 
+	 * for(Advert a : closedAdverts) { List<Offer> o = os.getOffersByAdvert(a);
+	 * double price=0;
+	 * 
+	 * for(Offer offer : o) { double offerPrice = offer.getPrice(); if(price <
+	 * offerPrice) { price = offerPrice; System.out.println(price); } }
+	 * 
+	 * Offer buyer = os.getOfferByPriceAndAdvert(price, a); if(buyer != null) {
+	 * finalno.add(buyer); }
+	 * 
+	 * }
+	 * 
+	 * for(Offer o : finalno) { for(Advert a : closedAdverts) {
+	 * if(o.getAdvert().getIdAdvert()==a.getIdAdvert()) {
+	 * 
+	 * } } } int size = closedAdverts.size(); response.setContentType("text/html");
+	 * JRBeanCollectionDataSource dataSource = new
+	 * JRBeanCollectionDataSource(closedAdverts); InputStream inputStream =
+	 * this.getClass().getResourceAsStream("/jasperreports/MyClosedAuctions.jrxml");
+	 * JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+	 * Map<String, Object> params = new HashMap<String, Object>();
+	 * params.put("size", size); JasperPrint jasperPrint =
+	 * JasperFillManager.fillReport(jasperReport, params, dataSource);
+	 * inputStream.close();
+	 * 
+	 * response.setContentType("application/x-download");
+	 * response.addHeader("Content-disposition",
+	 * "attachment; filename=MyClosedAuctions.pdf"); OutputStream out =
+	 * response.getOutputStream();
+	 * JasperExportManager.exportReportToPdfStream(jasperPrint,out); }
+	 */	
 }

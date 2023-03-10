@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="/css/auction.css">
 </head>
 
-<body>
+<body style="background-color: #E0E0E0">
 	<div class="container">
 	
 	<!--NEREGISTROVAN CLAN-->

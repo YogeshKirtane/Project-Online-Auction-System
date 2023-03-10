@@ -16,9 +16,9 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/welcome.css">
 </head>
-<body>
+<body style="background-color: #E0E0E0">
 	<div class="container overflow:hidden">
-	<!--NEREGISTROVAN CLAN-->
+
 	<c:if test="${user.role!=1 }">
 		<jsp:include page="header1.jsp" />
 		<br/><br/><br/><br/>
@@ -35,18 +35,16 @@
 				</div>
 			</div>
 		</div>
-	</c:if>
-		
-	<!--REGISTROVAN CLAN-->
+	</c:if>		
+
 	<c:if test="${user.role==1 }">
 		<jsp:include page="header2.jsp" />
 	</c:if>
 	
-	<!--PAGE CONTENTS-->
-		<br/><hr>
+		<br/><hr/><br/>
 		<div class="row mb-4">
 			<div class="col-md-7 mb-2 text-center mx-auto">
-				<h2 class="text-black"><strong>Auctions</strong></h2>
+				<h1 class="text-black"><strong>Auctions</strong></h1>
 			</div>
 		</div> 
 			<form action="/auction/showAdverts" method="post">
@@ -54,48 +52,49 @@
 						<label for="exampleDataList" class="form-label btn bg-transparent">Choose Category</label>
 					</div>
 					<ul class="list-group list-group-horizontal justify-content-center">
+						<li class="list-group-item"><a href="/auction/welcome" class="btn btn-link btn-sm p-0" data-mdb-ripple-color="dark">Show All</a></li>
 					<c:forEach items="${advertCategories }" var="ac">
-    					<li class="list-group-item"><button type="submit" name="advertCategory" value="${ac.idAdvertCategory }" class="btn btn-link" data-mdb-ripple-color="dark">${ac.category}</button></li>
+    					<li class="list-group-item"><button type="submit" name="advertCategory" value="${ac.idAdvertCategory }" class="btn btn-link btn-sm p-0" data-mdb-ripple-color="dark">${ac.category}</button></li>
 					</c:forEach>
 					</ul>	
 			</form>
 			<br/><br/>    
-
-		<c:if test="${!empty adverts}">	
+		<c:choose>
+		<c:when test="${!empty adverts}">	
 			<div class="card-deck">		
 				<c:forEach items="${adverts }" var="a">					
 						<c:if test="${a.isActive==1 }">
-  							<div class="col-4 col-md-4 col-lg-3">
-      								<div class="card-body"> 
+  							<div class="col-4 col-md-4 col-lg-3 mb-2 mt-2">
+      								<div class="border card-body bg-light"> 
       								    <h4 class="badge bg-success text-wrap">ACTIVE</h4>   
-      									<img src="./images/${a.imageName}" class="card-img-top" alt="..."> 									
+      									<img src="./images/${a.imageName}" class="card-img-top embed-responsive-4by3" alt="..."> 									
 										<br/><br/>
         								<h5 class="card-title">${a.name }</h5>
-        								<h6 class="card-title">Starting prize: &#x20B9;${a.startingPrice } </h6>
-        								<p class="card-text text-truncate">Description: ${a.description }</p>
+        								<h6 class="card-title">Starting prize: &#x20B9;${a.startingPrice} </h6>
+        								<p class="card-text text-truncate">Description: ${a.description}</p>
         								
         								<c:if test="${user.role==1}">
 						   					<p class="card-text">Owner: <a class="isDisabled" href="/auction/myProfile2?idUser=${a.user.idUser }">${a.user.firstname } ${a.user.lastname }</a></p>
 										</c:if>					
 										<c:if test="${user.role!=1}">
-						   					<p class="card-text">Owner: ${a.user.firstname } ${a.user.lastname }</p>
+						   					<p class="card-text">Owner: ${a.user.firstname} ${a.user.lastname}</p>
 										</c:if>
-										<p class="card-text"><small class="text-muted">Posted at: ${a.time }</small></p>									   		
+										<p class="card-text"><small class="text-muted">Posted at: ${a.time}</small></p>									   		
         								<c:if test="${user.idUser!=a.user.idUser }"> 
-						   					<a href="/auction/advert?idProduct=${a.idAdvert }" class="form-control btn btn-primary">Bid now!</a>
+						   					<a href="/auction/advert?idProduct=${a.idAdvert}" class="form-control btn btn-primary stretched-link">Bid now!</a>
 						   				</c:if>		   		
-						   				<c:if test="${user.idUser==a.user.idUser }"> 
-						   					<a href="/auction/advert?idProduct=${a.idAdvert }" class="form-control btn btn-primary">Check your auction!</a>
+						   				<c:if test="${user.idUser==a.user.idUser}"> 
+						   					<a href="/auction/advert?idProduct=${a.idAdvert}" class="form-control btn btn-primary stretched-link">Check your auction!</a>
 						   				</c:if>
       								</div>
   							</div>
 						</c:if>	
 												
 						<c:if test="${a.isActive==0 }">
-  							<div class="col-4 col-md-4 col-lg-3">
-      								<div class="card-body">
+  							<div class="col-4 col-md-4 col-lg-3 mb-2 mt-2">
+      								<div class="border card-body bg-light">
       									<h4 class="badge bg-danger text-wrap">CLOSED</h4>
-      									<img src="@{'images/'+${a.imageName}}" class="card-img-top" alt="...">
+      									<img src="./images/${a.imageName}" class="card-img-top" alt="...">
       									<br/><br/>
         								<h5 class="card-title">${a.name }</h5>
         								<h6 class="card-title">Starting prize: &#x20B9;${a.startingPrice } </h6>
@@ -137,7 +136,13 @@
 						</c:if>							
 				</c:forEach>
 			</div>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<h3 class="text-center">We don't have any auction yet!</h3>
+			<br/><br/><br/>
+		</c:otherwise>
+		</c:choose>
+		
 				<hr><br/>
 		<c:if test="${user.role!=1 }">
 		<div class="site-section">

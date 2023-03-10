@@ -15,19 +15,19 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/css/auction.css">
 </head>
-<body>
+<body style="background-color: #E0E0E0">
 	<jsp:include page="header1.jsp" />
 	<div class="container overflow:hidden">
 
 	<br/><br/><br/><br/>
-	<div class="container-fluid p-auto m-auto h-100" >
+	<div class="container-fluid">
 		<div class="row d-flex justify-content-center">
 			<div class="col-xl-7 col-lg-8 col-md-9 col-10 text-center">
 				<h3>
 					<strong>Register Yourself</strong>
 				</h3>
 				<br>
-				<div class="card border-0">
+				<div class="card border-0 bg-transparent">
 					<c:if test="${userExist=='userExist' }">
 					<div class="alert alert-danger">
 						<p class="text text-center">
@@ -116,7 +116,7 @@
 							</div>
 							<div class="form-group col-sm-6 flex-column d-flex">
 								<br/>
-								<span class="text-muted"><small><i>Username should have 6 characters</i></small></span>
+								<span class="text-muted"><small><i>Username & Password should have 6 characters</i></small></span>
 							</div>
 						</div>
 						<div class="row justify-content-between text-left">
@@ -153,6 +153,6 @@
 	
 	</div>
 	<br/><br/><br/><br/>
-	<jsp:include page="footer.jsp" /> 		
+	<jsp:include page="footer.jsp" /> 	
 </body>
 </html>
