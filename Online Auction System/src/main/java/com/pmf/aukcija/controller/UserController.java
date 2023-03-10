@@ -375,8 +375,25 @@ public class UserController {
 		
 		us.save(u);
 		
-		return "userProfile";
+		return "userProfile";	
+	}
+	
+	@RequestMapping(value="aboutUs", method=RequestMethod.GET)
+	public String aboutUs(HttpServletRequest request) {
+		User u = (User) request.getSession().getAttribute("user");
 		
+		request.getSession().setAttribute("user", u);
+		
+		return "aboutUs";
+	}
+	
+	@RequestMapping(value="how", method=RequestMethod.GET)
+	public String howItWorks(HttpServletRequest request) {
+		User u = (User) request.getSession().getAttribute("user");
+		
+		request.getSession().setAttribute("user", u);
+		
+		return "how";
 	}
 	
 }

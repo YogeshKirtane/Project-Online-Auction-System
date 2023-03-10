@@ -15,5 +15,4 @@ public class WelcomeController {
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		return "redirect:/auction/welcome";
 	}
-
 }

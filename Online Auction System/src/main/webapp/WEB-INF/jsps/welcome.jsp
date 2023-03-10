@@ -44,7 +44,7 @@
 		<br/><hr/><br/>
 		<div class="row mb-4">
 			<div class="col-md-7 mb-2 text-center mx-auto">
-				<h1 class="text-black"><strong>Auctions</strong></h1>
+				<h1 class="text-black"><strong>Auction</strong></h1>
 			</div>
 		</div> 
 			<form action="/auction/showAdverts" method="post">
@@ -143,7 +143,12 @@
 		</c:otherwise>
 		</c:choose>
 		
-				<hr><br/>
+		<hr>
+		
+		<c:if test="${user.role==1 }">
+			<jsp:include page="how.jsp" />
+		</c:if>
+		
 		<c:if test="${user.role!=1 }">
 		<div class="site-section">
 			<div class="container">

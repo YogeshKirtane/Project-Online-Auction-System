@@ -47,11 +47,7 @@ public class AdvertService {
 	public List<Advert> getAllAdverts() {
 		return ar.findAll();
 	}
-	
-	public Advert deleteAdvertById(int id) {
-		return ar.deleteById(id);
-	}
-	
+		
 	public void save(Advert a) {
 		ar.save(a);
 	}

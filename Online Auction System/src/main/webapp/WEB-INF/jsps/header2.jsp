@@ -34,6 +34,9 @@
 			      	<li class="nav-item">
 				        	<a class="nav-link" href="/auction/allUsers">All Users</a>
 				    </li>
+				    <li class="nav-item">
+				        	<a class="nav-link" href="/auction/aboutUs">About Us</a>
+				    </li>
 			    </ul>
 		   	    <form class="form-inline my-2 my-lg-0">
 		      		<a href="/auth/logout" class="btn btn-outline-danger">Logout</a>

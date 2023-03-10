@@ -145,26 +145,7 @@ public class AdvertController {
 		
 		return "advert";	
 	}
-	
-	
-	/*
-	 * @RequestMapping(value="deleteAdvert", method=RequestMethod.POST) public
-	 * String deleteAdvert(@RequestParam(value ="idProduct", required =false)
-	 * Integer id, ModelMap modelMap, HttpServletRequest request) { Advert advert =
-	 * as.getAdvertById(id); User userAdvert = us.getUseryByAdverts(advert); User
-	 * userLogedIn = (User) request.getSession().getAttribute("user"); int
-	 * idUserAdvert = userAdvert.getIdUser(); int idUserLogedIn =
-	 * userLogedIn.getIdUser(); Rating rating =
-	 * rs.getRatingByUserAndAdvert(userAdvert, advert);
-	 * 
-	 * if(idUserAdvert==idUserLogedIn) {
-	 * 
-	 * }
-	 * 
-	 * return "deleteAdvert"; }
-	 */
-	 
-	
+		
 	//Method for closing bid. If user is owner of auction, he can close auction on button ACTIVE..
 	@RequestMapping(value="closeBid", method=RequestMethod.GET) 
 	public String closeBid(@RequestParam(value="idProduct", required=false) Integer id, ModelMap modelMap,  HttpServletRequest request) {

@@ -61,12 +61,7 @@
         								<p class="card-text text-truncate">Description: ${a.description }</p>
 						   				<p class="card-text">Owner: <a class="isDisabled" href="/auction/myProfile2?idUser=${a.user.idUser }">${a.user.firstname } ${a.user.lastname }</a></p>				
 										<p class="card-text"><small class="text-muted">Posted at: ${a.time }</small></p>							   		 
-						   				<a href="advert?idProduct=${a.idAdvert }" class="form-control btn btn-primary">Check your auction!</a>
-						   				<div class="card-text mt-2">
-						    			<form action="deleteAdvert" method="post">
-											<input type="submit" class="form-control btn btn-danger" value="Delete Item">
-										</form>
-				   						</div>
+						   				<a href="advert?idProduct=${a.idAdvert }" class="form-control btn btn-primary">Check your auction!</a>					   				
       							</div>
   							</div>
 						</c:if>	
@@ -94,12 +89,7 @@
 										</c:if>
 										<c:if test="${!empty a.ratingBuyer }">
 											<a href="#" class="form-control btn btn-success">You already gave rating</a>
-										</c:if>
-										<div class="card-text mt-2">
-						    			<form action="deleteAdvert" method="post">
-											<input type="submit" class="form-control btn btn-danger" value="Delete Item">
-										</form>
-				   						</div>																
+										</c:if>															
 									</div>
     							</div>
 						</c:if>							
